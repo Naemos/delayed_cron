@@ -16,12 +16,14 @@ module DelayedCron
       end
 
       def self.scheduled?(klass, method_name)
-        scheduled = false
+        jobs_count = 0
         ::Delayed::Job.where(:queue => :cron_job).each do |job|
           obj = YAML.load_dj(job.handler)
-          #scheduled = true if obj["klass"] == klass && obj["method_name"] == method_name
+          if (obj["klass"] == klass && obj["method_name"] == method_name)
+            jobs_count += 1
+          end
         end
-        scheduled
+        jobs_count > 1
       end
 
       def perform
