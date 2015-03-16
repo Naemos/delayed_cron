@@ -24,7 +24,7 @@ module DelayedCron
         scheduled
       end
 
-      def perform(klass, method_name, options)
+      def perform
         DelayedCron.process_job(klass, method_name, options)
       end
 
