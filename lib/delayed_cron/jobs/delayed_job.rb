@@ -24,7 +24,7 @@ module DelayedCron
 						allowed_jobs_count -= 1
 					end
 				end
-				allowed_jobs_count >= 0
+				allowed_jobs_count < 0
       end
 
       def perform
