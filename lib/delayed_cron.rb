@@ -33,9 +33,11 @@ module DelayedCron
     end
 
     def schedule(klass, method_name, options)
+			p "interval je #{options[:interval]}"
       if options[:at]
         options[:interval] = adjust_interval(beginning_of_day(options[:interval].to_i), options[:at])
-      end
+			end
+			p "interval je po spocitani #{options[:interval]}"
       processor.enqueue_delayed_cron(klass, method_name, options)
     end
 
