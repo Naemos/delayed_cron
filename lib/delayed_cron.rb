@@ -13,6 +13,7 @@ module DelayedCron
     end
 
     def define_cron_jobs
+			p "Volana metoda define_cron_jobs"
       return false unless cron_jobs.present?
       cron_jobs.each do |job|
         obj         = job
@@ -79,6 +80,7 @@ module DelayedCron
 
     def cron_job(name, options = { interval: DelayedCron.default_interval })
       return false if options.delete(:if) == false
+			p "Volana metoda cron_job"
       DelayedCron.schedule(self.name.to_s, name, options)
     end
 
