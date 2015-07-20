@@ -35,6 +35,7 @@ module DelayedCron
     def schedule(klass, method_name, options)
       if options[:at]
         options[:interval] = adjust_interval(beginning_of_day(options[:interval].to_i), options[:at])
+        p "datetime.civil: #{options[:interval]}"
 			end
       processor.enqueue_delayed_cron(klass, method_name, options)
     end
@@ -50,11 +51,14 @@ module DelayedCron
     end
 
     def adjust_interval(date, time_string)
+      p "beginning of the day: #{date}, time: #{time_string}"
+      p "time.now: #{Time.now.to_i}"
       adjusted_date(date, time_string).to_i - Time.now.to_i
     end
 
     def adjusted_date(date, time_string)
       time = parse_time(time_string.split(/:|\ /).map(&:to_i))
+      p "parsed_time: #{time}"
       DateTime.civil(date.year, date.month, date.day, time[:hours], time[:mins], time[:secs], Rational(time[:tz], 2400))
     end
 
