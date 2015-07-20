@@ -40,6 +40,7 @@ module DelayedCron
         p "interval to_i: #{options[:interval].to_i}"
         options[:interval] = adjust_interval(beginning_of_day(options[:interval].to_i), options[:at])
         p "datetime.civil: #{options[:interval]}"
+        p "datetime.civil.to_i: #{options[:interval].to_i}"
 			end
       processor.enqueue_delayed_cron(klass, method_name, options)
     end
