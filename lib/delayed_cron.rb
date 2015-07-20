@@ -34,6 +34,7 @@ module DelayedCron
 
     def schedule(klass, method_name, options)
       p "---------"
+
       p "options: #{options.inspect}"
 
       if options[:at]
