@@ -7,8 +7,6 @@ module DelayedCron
       def self.enqueue_delayed_cron(klass, method_name, options)
 				first_run = options.delete(:first_run)
         unless scheduled?(klass, method_name, first_run)
-          p "job naplanovan na #{Time.now + options[:interval]}"
-          p "Time.now:#{Time.now}"
           options.symbolize_keys!
           ::Delayed::Job.enqueue(
             :payload_object => new(klass, method_name, options),

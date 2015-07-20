@@ -33,15 +33,8 @@ module DelayedCron
     end
 
     def schedule(klass, method_name, options)
-      p "---------"
-
-      p "options: #{options.inspect}"
-
       if options[:at]
-        p "interval to_i: #{options[:interval].to_i}"
         options[:interval] = adjust_interval(beginning_of_day(options[:interval].to_i), options[:at])
-        p "datetime.civil: #{options[:interval]}"
-        p "datetime.civil.to_i: #{options[:interval].to_i}"
 			end
       processor.enqueue_delayed_cron(klass, method_name, options)
     end
@@ -49,7 +42,6 @@ module DelayedCron
     def process_job(klass, method_name, options)
       # TODO: add ability to send args to klass method
       klass.constantize.send(method_name)
-      p "planuji novy job"
       schedule(klass, method_name, options)
     end
 
@@ -58,14 +50,11 @@ module DelayedCron
     end
 
     def adjust_interval(date, time_string)
-      p "beginning of the day: #{date}, time: #{time_string}"
-      p "time.now: #{Time.now.to_i}"
       adjusted_date(date, time_string).to_i - Time.now.to_i
     end
 
     def adjusted_date(date, time_string)
       time = parse_time(time_string.split(/:|\ /).map(&:to_i))
-      p "parsed_time: #{time}"
       DateTime.civil(date.year, date.month, date.day, time[:hours], time[:mins], time[:secs], Rational(time[:tz], 2400))
     end
 
@@ -91,7 +80,6 @@ module DelayedCron
     def cron_job(name, options = { interval: DelayedCron.default_interval })
       return false if options.delete(:if) == false
 			options[:first_run] = true
-      p "volan cron_job"
       DelayedCron.schedule(self.name.to_s, name, options)
     end
 
