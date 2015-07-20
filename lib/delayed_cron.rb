@@ -33,7 +33,9 @@ module DelayedCron
     end
 
     def schedule(klass, method_name, options)
+      p "---------"
       if options[:at]
+        p "options: #{options.inspect}"
         options[:interval] = adjust_interval(beginning_of_day(options[:interval].to_i), options[:at])
         p "datetime.civil: #{options[:interval]}"
 			end
