@@ -24,6 +24,7 @@ module DelayedCron
 						allowed_jobs_count -= 1
 					end
         end
+        p allowed_jobs_count
         p allowed_jobs_count < 0
 				allowed_jobs_count < 0
       end
