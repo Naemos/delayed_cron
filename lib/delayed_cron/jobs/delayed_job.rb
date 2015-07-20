@@ -17,7 +17,8 @@ module DelayedCron
       end
 
       def self.scheduled?(klass, method_name, first_run)
-				allowed_jobs_count = first_run ? 0 : 1
+				# allowed_jobs_count = first_run ? 0 : 1
+        allowed_jobs_count = 0
         ::Delayed::Job.where(:queue => :cron_job).each do |job|
           obj = YAML.load_dj(job.handler)
           if (obj["klass"] == klass && obj["method_name"] == method_name)
