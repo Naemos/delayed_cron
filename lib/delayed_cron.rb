@@ -80,6 +80,7 @@ module DelayedCron
     def cron_job(name, options = { interval: DelayedCron.default_interval })
       return false if options.delete(:if) == false
 			options[:first_run] = true
+      p "volan cron_job"
       DelayedCron.schedule(self.name.to_s, name, options)
     end
 
