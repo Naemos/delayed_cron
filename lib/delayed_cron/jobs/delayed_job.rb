@@ -23,7 +23,8 @@ module DelayedCron
           if (obj["klass"] == klass && obj["method_name"] == method_name)
 						allowed_jobs_count -= 1
 					end
-				end
+        end
+        p allowed_jobs_count < 0
 				allowed_jobs_count < 0
       end
 
