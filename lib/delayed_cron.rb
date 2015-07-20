@@ -49,6 +49,7 @@ module DelayedCron
     def process_job(klass, method_name, options)
       # TODO: add ability to send args to klass method
       klass.constantize.send(method_name)
+      p "planuji novy job"
       schedule(klass, method_name, options)
     end
 
