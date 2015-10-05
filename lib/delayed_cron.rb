@@ -35,7 +35,7 @@ module DelayedCron
     def schedule(klass, method_name, options)
       if options[:at]
         options[:interval] = adjust_interval(beginning_of_day(options[:interval].to_i), options[:at])
-			end
+      end
       processor.enqueue_delayed_cron(klass, method_name, options)
     end
 
@@ -79,7 +79,7 @@ module DelayedCron
 
     def cron_job(name, options = { interval: DelayedCron.default_interval })
       return false if options.delete(:if) == false
-			options[:first_run] = true
+      options[:first_run] = true
       DelayedCron.schedule(self.name.to_s, name, options)
     end
 
